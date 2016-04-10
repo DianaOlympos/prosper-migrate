@@ -11,9 +11,9 @@ defmodule ProsperMigrate.InsertInflux do
 
     buy_sell=
       if row."buy_sell" == 0 do
-        "buy"
-      else
         "sell"
+      else
+        "buy"
       end
 
     field = %{price_best: row."price_best",
