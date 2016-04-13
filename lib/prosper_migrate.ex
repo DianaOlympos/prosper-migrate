@@ -8,7 +8,7 @@ defmodule ProsperMigrate do
 
     children = [
       worker(ProsperMigrate.Repo, []),
-      worker(InfluxConnection,[]),
+      worker(ProsperMigrate.InfluxConnection,[]),
       worker(Task, [ProsperMigrate.ExtractSqlite, :seed_influx, []])
       # Define workers and child supervisors to be supervised
       # worker(ProsperMigrate.Worker, [arg1, arg2, arg3]),
