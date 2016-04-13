@@ -8,7 +8,7 @@ defmodule ProsperMigrate.ExtractSqlite do
     |> select([s], s."typeid")
 
     query
-    |> Repo.all(:infinity,:infinity)
+    |> Repo.all([timeout: :infinity,pool_timeout: :infinity)
     |> Enum.sort(&(&1>=&2))
   end
 
