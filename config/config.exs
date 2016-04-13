@@ -22,7 +22,7 @@ use Mix.Config
 #
 config :prosper_migrate, ProsperMigrate.Repo,
   adapter: Sqlite.Ecto,
-  database: "/home/diana/database"
+  database: "/home/diana/database.db"
 
 config :prosper_migrate, ProsperMigrate.InfluxConnection,
   hosts:     [ "localhost" ],
