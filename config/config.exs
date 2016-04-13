@@ -24,7 +24,7 @@ config ProsperMigrate, ProsperMigrate.Repo,
   adapter: Sqlite.Ecto,
   database: "/home/diana/database"
 
-config ProsperMigrate, ProsperMigrate.InfluxConnection,
+config :prosper_migrate, ProsperMigrate.InfluxConnection,
   hosts:     [ "localhost" ],
   pool:      [ max_overflow: 10, size: 5 ],
   port:      8086
