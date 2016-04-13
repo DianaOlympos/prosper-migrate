@@ -9,7 +9,7 @@ defmodule ProsperMigrate.ExtractSqlite do
 
     query
     |> Repo.all
-    |> Enum.sort(fn x,y -> x>=y end)
+    |> Enum.sort(&(&1>=&2))
   end
 
   def extract_item(itemID) do
@@ -27,7 +27,12 @@ defmodule ProsperMigrate.ExtractSqlite do
 
     item_list
     |> Stream.map(&extract_item/1)
-    |> Stream.map(fn x -> Enum.map(x, &InsertInflux.item_insert/1) end)
+    |> Stream.map(&seed_from_item/1)
     |> Stream.run()
+  end
+
+  def seed_from_item(list) do
+    list
+    |> Enum.map(&InsertInflux.item_insert/1)
   end
 end
