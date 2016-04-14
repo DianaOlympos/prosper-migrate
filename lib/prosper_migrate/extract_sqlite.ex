@@ -1,26 +1,31 @@
 defmodule ProsperMigrate.ExtractSqlite do
-  alias ProsperMigrate.Repo
-  import Ecto.Query
+  # alias ProsperMigrate.Repo
+  # import Ecto.Query
 
   def extract_itemID() do
-    query = from(s in "snapshot_evecentral")
-    |> distinct(true)
-    |> select([s], s."typeid")
+    db_path= Application.get_env(:prosper_migrate, :database)
+    Sqlitex.with_db(String.to_char_list(db_path), fn(db) ->
+  Sqlitex.query(db,
+    "SELECT DISTINCT s.typeid FROM snapshot_evecentral AS s")
+end)
+    # query = from(s in "snapshot_evecentral")
+    # |> distinct(true)
+    # |> select([s], s."typeid")
 
-    query
-    |> Repo.all([timeout: :infinity,pool_timeout: :infinity])
-    |> Enum.sort(&(&1>=&2))
+    # query
+    # |> Repo.all([timeout: :infinity,pool_timeout: :infinity])
+    # |> Enum.sort(&(&1>=&2))
   end
 
-  def extract_item(itemID) do
-    query = from(s in "snapshot_evecentral")
-    |> where([s], s."typeid"== ^itemID)
-    |> order_by([s], asc: s."price_date", asc: s."price_time")
-    |> select([s], s)
+  # def extract_item(itemID) do
+  #   query = from(s in "snapshot_evecentral")
+  #   |> where([s], s."typeid"== ^itemID)
+  #   |> order_by([s], asc: s."price_date", asc: s."price_time")
+  #   |> select([s], s)
 
-    query
-    |> Repo.all
-  end
+  #   query
+  #   |> Repo.all
+  # end
 
   def seed_influx() do
     item_list=extract_itemID()
