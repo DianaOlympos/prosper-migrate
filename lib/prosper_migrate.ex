@@ -7,7 +7,7 @@ defmodule ProsperMigrate do
     import Supervisor.Spec, warn: false
 
     children = [
-      worker(ProsperMigrate.Repo, []),
+      # worker(ProsperMigrate.Repo, []),
       supervisor(Task.Supervisor, [[name: ProsperMigrate.TaskSupervisor]]),
             ProsperMigrate.InfluxConnection.child_spec,
       worker(Task, [ProsperMigrate.ExtractSqlite, :seed_influx, []])
