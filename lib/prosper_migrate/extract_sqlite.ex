@@ -6,7 +6,7 @@ defmodule ProsperMigrate.ExtractSqlite do
     db_path= Application.get_env(:prosper_migrate, :database)
     Sqlitex.with_db(String.to_char_list(db_path), fn(db) ->
   Sqlitex.query(db,
-    "SELECT DISTINCT s.typeid FROM snapshot_evecentral AS s")
+    "SELECT DISTINCT s.typeid FROM snapshot_evecentral AS s LIMIT 10")
 end)
     # query = from(s in "snapshot_evecentral")
     # |> distinct(true)
