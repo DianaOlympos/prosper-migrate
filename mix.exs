@@ -14,7 +14,7 @@ defmodule ProsperMigrate.Mixfile do
   #
   # Type "mix help compile.app" for more information
   def application do
-    [applications: [:logger,:instream, :sqlitex, :timex],
+    [applications: [:logger,:instream, :ecto, :sqlite_ecto,:timex],
      mod: {ProsperMigrate, []}]
   end
 
@@ -29,7 +29,8 @@ defmodule ProsperMigrate.Mixfile do
   # Type "mix help deps" for more examples and options
   defp deps do
     [{:instream, "~> 0.10.0"},
-     {:sqlitex, "~> 1.0"},
+     {:sqlite_ecto, "~> 1.1"},
+     {:ecto, "~> 1.1"},
      {:timex, "~> 2.1"}]
   end
 end

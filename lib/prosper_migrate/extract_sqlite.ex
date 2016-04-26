@@ -1,20 +1,25 @@
 defmodule ProsperMigrate.ExtractSqlite do
-  # alias ProsperMigrate.Repo
-  # import Ecto.Query
+  alias ProsperMigrate.Repo
+  import Ecto.Query
 
   def extract_itemID() do
-    db_path= Application.get_env(:prosper_migrate, :database)
-    Sqlitex.with_db(String.to_char_list(db_path), fn(db) ->
-  Sqlitex.query(db,
-    "SELECT DISTINCT s.typeid FROM snapshot_evecentral AS s LIMIT 10")
-end)
-    # query = from(s in "snapshot_evecentral")
-    # |> distinct(true)
-    # |> select([s], s."typeid")
+    get_typeid_list([],0)
+  end
 
-    # query
-    # |> Repo.all([timeout: :infinity,pool_timeout: :infinity])
-    # |> Enum.sort(&(&1>=&2))
+  defp get_typeid_list(state, position) do
+    new_state = query_1000(position) ++ state
+    new_state
+    |> Enum.uniq()
+    |> get_typeid_list((position+1000))
+  end
+
+
+  defp query_1000(position) do
+    from(s in "snapshot_evecentral")
+    |> select([s], s."typeid")
+    |> limit(1000)
+    |> offset(^position)
+    |> Repo.all()
   end
 
   # def extract_item(itemID) do
@@ -29,7 +34,7 @@ end)
 
   def seed_influx() do
     item_list=extract_itemID()
-    |>IO.inspect()
+
 
     # item_list
     # |> Stream.map(&extract_item/1)

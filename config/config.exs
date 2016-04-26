@@ -20,11 +20,8 @@ use Mix.Config
 #
 #     config :logger, level: :info
 #
-# config :prosper_migrate, ProsperMigrate.Repo,
-#   adapter: Sqlite.Ecto,
-#   database: "/home/diana/database.db"
-
-config :prosper_migrate,
+config :prosper_migrate, ProsperMigrate.Repo,
+  adapter: Sqlite.Ecto,
   database: "/home/diana/database.db"
 
 config :prosper_migrate, ProsperMigrate.InfluxConnection,
