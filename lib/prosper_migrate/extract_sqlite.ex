@@ -20,14 +20,14 @@ defmodule ProsperMigrate.ExtractSqlite do
                 else
                   state
                 end
-    get_typeid_list(new_state, position+1000, continue)
+    get_typeid_list(new_state, position+100_000, continue)
   end
 
 
   defp query_1000(position) do
     from(s in "snapshot_evecentral")
     |> select([s], s."typeid")
-    |> limit(1000)
+    |> limit(100_000)
     |> offset(^position)
     |> Repo.all()
   end
