@@ -3,14 +3,23 @@ defmodule ProsperMigrate.ExtractSqlite do
   import Ecto.Query
 
   def extract_itemID() do
-    get_typeid_list([],0)
+
+    max = from(s in "snapshot_evecentral")
+    |> select([s], count(s."typeid"))
+    |> Repo.all()
+
+    get_typeid_list([], max)
+    |>Enum.sort()
   end
 
+  defp get_typeid_list(state, position) when position <= 0 do
+    state
+  end
   defp get_typeid_list(state, position) do
     new_state = query_1000(position) ++ state
     new_state
     |> Enum.uniq()
-    |> get_typeid_list((position+1000))
+    |> get_typeid_list(position-1000)
   end
 
 
@@ -18,7 +27,7 @@ defmodule ProsperMigrate.ExtractSqlite do
     from(s in "snapshot_evecentral")
     |> select([s], s."typeid")
     |> limit(1000)
-    |> offset(^position)
+    |> offset(position)
     |> Repo.all()
   end
 
