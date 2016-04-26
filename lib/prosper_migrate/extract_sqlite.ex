@@ -4,22 +4,23 @@ defmodule ProsperMigrate.ExtractSqlite do
 
   def extract_itemID() do
 
-    max = from(s in "snapshot_evecentral")
-    |> select([s], count("*"))
-    |> Repo.all()
-
-    get_typeid_list([], max)
+    get_typeid_list([], 0, false)
     |>Enum.sort()
   end
 
-  defp get_typeid_list(state, position) when position <= 0 do
+  defp get_typeid_list(state, _position, true)do
     state
   end
-  defp get_typeid_list(state, position) do
-    new_state = query_1000(position) ++ state
-    new_state
-    |> Enum.uniq()
-    |> get_typeid_list(position-1000)
+  defp get_typeid_list(state, position, false) do
+    query_result = query_1000(position)
+    continue = Enum.empty?(query_result)
+
+    new_state = if continue do
+                  Enum.uniq(query_result ++ state)
+                else
+                  state
+                end
+    get_typeid_list(new_state, position+1000, continue)
   end
 
 
