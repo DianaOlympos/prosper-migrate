@@ -5,7 +5,7 @@ defmodule ProsperMigrate.ExtractSqlite do
   def extract_itemID() do
 
     max = from(s in "snapshot_evecentral")
-    |> select([s], count(s."typeid"))
+    |> select([s], count("*"))
     |> Repo.all()
 
     get_typeid_list([], max)
