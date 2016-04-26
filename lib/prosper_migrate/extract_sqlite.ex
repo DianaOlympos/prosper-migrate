@@ -27,7 +27,7 @@ defmodule ProsperMigrate.ExtractSqlite do
     from(s in "snapshot_evecentral")
     |> select([s], s."typeid")
     |> limit(1000)
-    |> offset(position)
+    |> offset(^position)
     |> Repo.all()
   end
 
