@@ -33,7 +33,7 @@ defmodule ProsperMigrate.ExtractSqlite do
                      buy_sell: s.buy_sell})
 
     query
-    |> Repo.all
+    |> Repo.all([timeout: :infinity,pool_timeout: :infinity])
   end
 
  def seed_influx() do
