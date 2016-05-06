@@ -6,6 +6,7 @@ defmodule ProsperMigrate.ExtractSqlite do
 
     get_typeid_list()
     |>Enum.sort()
+    |>IO.inspect()
   end
 
   defp get_typeid_list() do
@@ -14,7 +15,7 @@ defmodule ProsperMigrate.ExtractSqlite do
       |> select([s], s."typeid")
 
       query
-      |> Repo.all()
+      |> Repo.all([timeout: :infinity,pool_timeout: :infinity])
   end
 
   def extract_item(itemID) do
