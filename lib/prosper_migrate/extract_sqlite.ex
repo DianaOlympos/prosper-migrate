@@ -15,7 +15,7 @@ defmodule ProsperMigrate.ExtractSqlite do
       |> select([s], s."typeid")
 
       query
-      |> Repo.all([timeout: :infinity,pool_timeout: :infinity])
+      |> Repo.all([timeout: 60000,pool_timeout: 60000])
   end
 
   def extract_item(itemID) do
@@ -34,7 +34,7 @@ defmodule ProsperMigrate.ExtractSqlite do
                      buy_sell: s.buy_sell})
 
     query
-    |> Repo.all([timeout: :infinity,pool_timeout: :infinity])
+    |> Repo.all([timeout: 60000,pool_timeout: 60000])
   end
 
  def seed_influx() do
