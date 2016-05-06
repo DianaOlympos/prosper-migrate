@@ -26,24 +26,24 @@ defmodule ProsperMigrate.InsertInflux do
   end
 
   def format_row(row) do
-    timestamp = Timex.to_unix({row."price_date", row."price_time"})
+    timestamp = Timex.to_unix({row.price_date, row.price_time})
 
     buy_sell=
-      if row."buy_sell" == 0 do
+      if row.buy_sell == 0 do
         "sell"
       else
         "buy"
       end
 
     data = %ECSnapshotSerie{}
-    data = %{ data | fields: %{ data.fields | price_best: row."price_best",
-                                              price_avg: row."price_avg",
-                                              order_volume: row."order_volume"}}
+    data = %{ data | fields: %{ data.fields | price_best: row.price_best,
+                                              price_avg: row.price_avg,
+                                              order_volume: row.order_volume}}
 
 
-    data = %{ data | tags: %{ data.tags | typeid: to_string(row."typeid"),
-                                          locationid: to_string(row."locationid"),
-                                          location_type: to_string(row."location_type"),
+    data = %{ data | tags: %{ data.tags | typeid: to_string(row.typeid),
+                                          locationid: to_string(row.locationid),
+                                          location_type: to_string(row.location_type),
                                           buy_sell: buy_sell}}
 
     data = %{ data | timestamp: timestamp}

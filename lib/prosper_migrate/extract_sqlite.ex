@@ -20,8 +20,17 @@ defmodule ProsperMigrate.ExtractSqlite do
   def extract_item(itemID) do
     query = from(s in "snapshot_evecentral")
     |> where([s], s."typeid"== ^itemID)
-    |> order_by([s], asc: s."price_date", asc: s."price_time")
-    |> select([s], s)
+    |> order_by([s], asc: s.price_date, asc: s.price_time)
+    |> select([s], %{price_date: s.price_date,
+                     price_time: s.price_time,
+                     buy_sell: s.buy_sell,
+                     price_best: s.price_best,
+                     price_avg: s.price_avg,
+                     order_volume: s.order_volume,
+                     typeid: s.typeid,
+                     locationid: s.locationid,
+                     location_type: s.location_type,
+                     buy_sell: s.buy_sell})
 
     query
     |> Repo.all
