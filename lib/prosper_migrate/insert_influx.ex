@@ -27,7 +27,7 @@ defmodule ProsperMigrate.InsertInflux do
   end
 
   def format_row(row) do
-    IO.put("inserting #{row.typeid}")
+    IO.put(row.typeid})
     timestamp = Timex.to_unix({row.price_date, row.price_time})
 
     buy_sell=
