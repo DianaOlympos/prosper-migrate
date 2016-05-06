@@ -1,5 +1,6 @@
 defmodule ProsperMigrate.ExtractSqlite do
   alias ProsperMigrate.Repo
+  alias ProsperMigrate.InsertInflux
   import Ecto.Query
 
   def extract_itemID() do
