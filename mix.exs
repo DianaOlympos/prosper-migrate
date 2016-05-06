@@ -28,7 +28,7 @@ defmodule ProsperMigrate.Mixfile do
   #
   # Type "mix help deps" for more examples and options
   defp deps do
-    [{:instream, "~> 0.10.0"},
+    [{:instream, "~> 0.11.0"},
      {:sqlite_ecto, "~> 1.1"},
      {:ecto, "~> 1.1"},
      {:timex, "~> 2.1"}]

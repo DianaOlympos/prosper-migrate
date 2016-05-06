@@ -9,7 +9,7 @@ defmodule ProsperMigrate do
     children = [
       worker(ProsperMigrate.Repo, []),
       supervisor(Task.Supervisor, [[name: ProsperMigrate.TaskSupervisor]]),
-            ProsperMigrate.InfluxConnection.child_spec
+      ProsperMigrate.InfluxConnection.child_spec
       # Define workers and child supervisors to be supervised
       # worker(ProsperMigrate.Worker, [arg1, arg2, arg3]),
     ]

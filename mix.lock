@@ -6,7 +6,7 @@
   "gettext": {:hex, :gettext, "0.11.0"},
   "hackney": {:hex, :hackney, "1.6.0"},
   "idna": {:hex, :idna, "1.2.0"},
-  "instream": {:hex, :instream, "0.10.0"},
+  "instream": {:hex, :instream, "0.11.0"},
   "metrics": {:hex, :metrics, "1.0.1"},
   "mimerl": {:hex, :mimerl, "1.0.2"},
   "pipe": {:hex, :pipe, "0.0.2"},
