@@ -17,25 +17,25 @@ defmodule ProsperMigrate.ExtractSqlite do
       |> Repo.all()
   end
 
-  # def extract_item(itemID) do
-  #   query = from(s in "snapshot_evecentral")
-  #   |> where([s], s."typeid"== ^itemID)
-  #   |> order_by([s], asc: s."price_date", asc: s."price_time")
-  #   |> select([s], s)
+  def extract_item(itemID) do
+    query = from(s in "snapshot_evecentral")
+    |> where([s], s."typeid"== ^itemID)
+    |> order_by([s], asc: s."price_date", asc: s."price_time")
+    |> select([s], s)
 
-  #   query
-  #   |> Repo.all
-  # end
+    query
+    |> Repo.all
+  end
 
-#  def seed_influx() do
-#    item_list=extract_itemID()
+ def seed_influx() do
+   item_list=extract_itemID()
 
 
-    # item_list
-    # |> Stream.map(&extract_item/1)
-    # |> Stream.map(&seed_from_item/1)
-    # |> Stream.run()
-#  end
+    item_list
+    |> Stream.map(&extract_item/1)
+    |> Stream.map(&seed_from_item/1)
+    |> Stream.run()
+ end
 
   def seed_from_item(list) do
     list
