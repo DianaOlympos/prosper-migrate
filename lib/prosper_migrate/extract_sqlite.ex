@@ -38,10 +38,7 @@ defmodule ProsperMigrate.ExtractSqlite do
   end
 
  def seed_influx() do
-   item_list=extract_itemID()
-
-
-    item_list
+    extract_itemID()
     |> Stream.map(&extract_item/1)
     |> Stream.map(&seed_from_item/1)
     |> Stream.run()
