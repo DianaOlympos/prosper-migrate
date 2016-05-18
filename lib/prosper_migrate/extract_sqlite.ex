@@ -35,7 +35,6 @@ defmodule ProsperMigrate.ExtractSqlite do
 
     query
     |> Repo.all([timeout: 600000,pool_timeout: 600000])
-    |> IO.inspect
   end
 
  def seed_influx() do
