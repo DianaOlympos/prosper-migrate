@@ -19,15 +19,15 @@ end
 
 defmodule ProsperMigrate.InsertInflux do
 
-  def item_insert(list) do
-    list
-    |> Enum.map(&format_row/1)
-    |> Enum.map(&ProsperMigrate.InfluxConnection.write/2)
+  def item_insert(row) do
+    row
+    |> format_row
+    |> ProsperMigrate.InfluxConnection.write
 
   end
 
   def format_row(row) do
-    IO.put(row)
+    IO.inspect(row)
     timestamp = Timex.to_unix({row.price_date, row.price_time})
 
     buy_sell=
