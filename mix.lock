@@ -6,7 +6,7 @@
   "gettext": {:hex, :gettext, "0.11.0", "80c1dd42d270482418fa158ec5ba073d2980e3718bacad86f3d4ad71d5667679", [:mix], []},
   "hackney": {:hex, :hackney, "1.6.0", "8d1e9440c9edf23bf5e5e2fe0c71de03eb265103b72901337394c840eec679ac", [:rebar3], [{:ssl_verify_fun, "1.1.0", [hex: :ssl_verify_fun, optional: false]}, {:mimerl, "1.0.2", [hex: :mimerl, optional: false]}, {:metrics, "1.0.1", [hex: :metrics, optional: false]}, {:idna, "1.2.0", [hex: :idna, optional: false]}, {:certifi, "0.4.0", [hex: :certifi, optional: false]}]},
   "idna": {:hex, :idna, "1.2.0", "ac62ee99da068f43c50dc69acf700e03a62a348360126260e87f2b54eced86b2", [:rebar3], []},
-  "instream": {:hex, :instream, "0.11.0", "229f6e70598c781c6b2b3a456b056ee3f44c348219068c9c9b368e6c4299ca50", [:mix], [{:poolboy, "~> 1.5", [hex: :poolboy, optional: false]}, {:poison, "~> 1.4 or ~> 2.0", [hex: :poison, optional: false]}, {:hackney, "~> 1.1", [hex: :hackney, optional: false]}]},
+  "instream": {:hex, :instream, "0.12.0", "c3a3570d266b0c8086add0e4c4e59d8341c25da998ea526be72fbf53e37bbfa1", [:mix], [{:poolboy, "~> 1.5", [hex: :poolboy, optional: false]}, {:poison, "~> 1.4 or ~> 2.0", [hex: :poison, optional: false]}, {:hackney, "~> 1.1", [hex: :hackney, optional: false]}]},
   "metrics": {:hex, :metrics, "1.0.1", "25f094dea2cda98213cecc3aeff09e940299d950904393b2a29d191c346a8486", [:rebar3], []},
   "mimerl": {:hex, :mimerl, "1.0.2", "993f9b0e084083405ed8252b99460c4f0563e41729ab42d9074fd5e52439be88", [:rebar3], []},
   "pipe": {:hex, :pipe, "0.0.2", "eff98a868b426745acef103081581093ff5c1b88100f8ff5949b4a30e81d0d9f", [:mix], []},

@@ -25,7 +25,7 @@ config :prosper_migrate, ProsperMigrate.Repo,
   database: "/home/diana/database.db"
 
 config :prosper_migrate, ProsperMigrate.InfluxConnection,
-  hosts:     [ "localhost" ],
+  host:     "localhost" ,
   pool:      [ max_overflow: 10, size: 5 ],
   port:      8086
 

@@ -50,6 +50,6 @@ defmodule ProsperMigrate.ExtractSqlite do
 
   def seed_from_item(list) do
     list
-    |> Enum.map(&InsertInflux.item_insert/1)
+    |> InsertInflux.item_insert
   end
 end
