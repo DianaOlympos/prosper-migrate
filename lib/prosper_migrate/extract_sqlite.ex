@@ -7,7 +7,6 @@ defmodule ProsperMigrate.ExtractSqlite do
 
     get_typeid_list()
     |>Enum.sort()
-    |>IO.inspect()
   end
 
   defp get_typeid_list() do
