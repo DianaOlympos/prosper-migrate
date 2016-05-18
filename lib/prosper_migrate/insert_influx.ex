@@ -49,7 +49,6 @@ defmodule ProsperMigrate.InsertInflux do
                                           buy_sell: buy_sell}}
 
     data = %{ data | timestamp: timestamp}
-    IO.put("inserted #{row.typeid}")
     data
   end
 end
