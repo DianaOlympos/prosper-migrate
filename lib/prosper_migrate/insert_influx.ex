@@ -19,9 +19,9 @@ end
 
 defmodule ProsperMigrate.InsertInflux do
 
-  def item_insert(row) do
-    row
-    |> format_row
+  def item_insert(list) do
+    list
+    |> Enum.map(&format_row/1)
     |> ProsperMigrate.InfluxConnection.write
 
   end
@@ -48,7 +48,6 @@ defmodule ProsperMigrate.InsertInflux do
                                           buy_sell: buy_sell}}
 
     data = %{ data | timestamp: timestamp}
-    IO.puts("inserted #{row.typeid}")
     data
   end
 end
