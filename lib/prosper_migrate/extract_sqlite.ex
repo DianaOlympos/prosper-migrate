@@ -34,8 +34,7 @@ defmodule ProsperMigrate.ExtractSqlite do
     :ok
   end
   def extract_and_seed_worker(id) do
-    id
-    |> Task.Supervisor.async(ProsperMigrate.TaskSupervisor,
+    Task.Supervisor.async(ProsperMigrate.TaskSupervisor,
                           fn x=^id -> extract_and_seed(x) end)
     |> Task.await(60000)
   end
