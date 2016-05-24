@@ -5,8 +5,9 @@ defmodule ProsperMigrate.ExtractSqlite do
 
 
   def seed_influx() do
+    pad = List.duplicate(0,50)
     extract_itemID()
-    |> Stream.chunk(5,5,[0,0,0,0,0,0,0,0,0,0])
+    |> Stream.chunk(50,50,pad)
     |> Stream.map(&async_workers/1)
     |> Stream.run()
   end
@@ -17,7 +18,7 @@ defmodule ProsperMigrate.ExtractSqlite do
       |> select([s], s."typeid")
 
       query
-      |> Repo.all([timeout: 600000,pool_timeout: 600000])
+      |> Repo.all([timeout: 6000000,pool_timeout: 6000000])
       |> Enum.sort()
   end
 
