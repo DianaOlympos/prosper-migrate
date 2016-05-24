@@ -3,21 +3,41 @@ defmodule ProsperMigrate.ExtractSqlite do
   alias ProsperMigrate.InsertInflux
   import Ecto.Query
 
-  def extract_itemID() do
 
-    get_typeid_list()
-    |>Enum.sort()
+  def seed_influx() do
+    extract_itemID()
+    |> Stream.chunk(5,5,[0,0,0,0,0,0,0,0,0,0])
+    |> Stream.map(&async_workers/1)
+    |> Stream.run()
   end
 
-  defp get_typeid_list() do
+  defp extract_itemID() do
       query = from(s in "snapshot_evecentral")
       |> distinct(true)
       |> select([s], s."typeid")
 
       query
       |> Repo.all([timeout: 600000,pool_timeout: 600000])
+      |> Enum.sort()
   end
 
+  def async_workers(list) do
+    list
+    |> Enum.map(&Task.Supervisor.async(ProsperMigrate.TaskSupervisor,
+                                        ProsperMigrate.ExtractSqlite,
+                                        :extract_and_seed,[&1]))
+    |> Enum.map(&Task.await(&1,60000))
+  end
+
+  def extract_and_seed(id) do
+    id
+    |> extract_item()
+    |> seed_from_item()
+  end
+
+  def extract_item(0) do
+    0
+  end
   def extract_item(itemID) do
     query = from(s in "snapshot_evecentral")
     |> where([s], s."typeid"== ^itemID)
@@ -37,15 +57,9 @@ defmodule ProsperMigrate.ExtractSqlite do
     |> Repo.all([timeout: 600000,pool_timeout: 600000])
   end
 
- def seed_influx() do
-    extract_itemID()
-    |> Stream.map(&extract_item/1)
-    |> Stream.map(&seed_from_item/1)
-    |> Stream.run()
- end
-
   def seed_from_item(list) do
     list
     |> InsertInflux.item_insert
   end
+
 end
