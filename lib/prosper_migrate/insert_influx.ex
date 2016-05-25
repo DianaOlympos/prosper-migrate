@@ -22,7 +22,7 @@ defmodule ProsperMigrate.InsertInflux do
   def item_insert(list) do
     list
     |> Enum.map(&format_row/1)
-    |> ProsperMigrate.InfluxConnection.write()
+    |> ProsperMigrate.InfluxConnection.write(async: true)
 
   end
 
