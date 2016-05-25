@@ -5,9 +5,9 @@ defmodule ProsperMigrate.ExtractSqlite do
 
 
   def seed_influx() do
-    pad = List.duplicate(0,25)
+    pad = List.duplicate(0,10)
     extract_itemID()
-    |> Stream.chunk(25,25,pad)
+    |> Stream.chunk(10,10,pad)
     |> Stream.map(&async_workers/1)
     |> Stream.run()
   end
