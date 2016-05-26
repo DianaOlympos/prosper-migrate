@@ -5,8 +5,11 @@ defmodule ProsperMigrate.ExtractSqlite do
 
 
   def seed_influx() do
+    padding = List.duplicate(0,5)
     extract_itemID()
-    |> Stream.map(&extract_item/1)
+    |> Stream.chunk(5,5, padding)
+    |> Stream.map(&async_extract_from_list/1)
+    |> Stream.map(&(Task.await(&1, 600000)))
     |> Stream.map(&seed_worker/1)
     |> Stream.run()
   end
@@ -21,15 +24,20 @@ defmodule ProsperMigrate.ExtractSqlite do
       |> Enum.sort()
   end
 
+  def async_extract_from_list(list_itemID) do
+    Task.Supervisor.async_nolink(ProsperMigrate.TaskSupervisor.Sqlite,
+                                fn -> extract_item(list_itemID) end)
+  end
 
   def seed_worker(id) do
     Task.Supervisor.start_child(ProsperMigrate.TaskSupervisor,
                           fn -> seed_from_item(id) end)
   end
 
-  def extract_item(itemID) do
+  def extract_item(list_itemID) do
+    items = Enum.filter(list_itemID, &(&1!=0))
     query = from(s in "snapshot_evecentral")
-    |> where([s], s."typeid"== ^itemID)
+    |> where([s], s."typeid" in ^items)
     |> order_by([s], asc: s.price_date, asc: s.price_time)
     |> select([s], %{price_date: s.price_date,
                      price_time: s.price_time,
