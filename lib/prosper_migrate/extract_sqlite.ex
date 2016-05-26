@@ -5,10 +5,9 @@ defmodule ProsperMigrate.ExtractSqlite do
 
 
   def seed_influx() do
-    pad = List.duplicate(0,10)
     extract_itemID()
-    |> Stream.chunk(10,10,pad)
-    |> Stream.map(&async_workers/1)
+    |> Stream.map(&extract_item/1)
+    |> Stream.map(&seed_worker/1)
     |> Stream.run()
   end
 
@@ -22,28 +21,10 @@ defmodule ProsperMigrate.ExtractSqlite do
       |> Enum.sort()
   end
 
-  def async_workers(0) do
-    :ok
-  end
 
-  def async_workers(list) do
-    list
-    |> Enum.map(&extract_and_seed_worker/1)
-    |> Enum.map(&Task.await(&1, 60000))
-  end
-
-  def extract_and_seed_worker(0) do
-    :ok
-  end
-  def extract_and_seed_worker(id) do
-    Task.Supervisor.async(ProsperMigrate.TaskSupervisor,
-                          fn -> extract_and_seed(id) end)
-  end
-
-  def extract_and_seed(id) do
-    id
-    |> extract_item()
-    |> seed_from_item()
+  def seed_worker(id) do
+    Task.Supervisor.start_child(ProsperMigrate.TaskSupervisor,
+                          fn -> seed_from_item(id) end)
   end
 
   def extract_item(itemID) do
