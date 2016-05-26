@@ -25,7 +25,7 @@ defmodule ProsperMigrate.ExtractSqlite do
   end
 
   def async_extract_from_list(list_itemID) do
-    Task.Supervisor.async_nolink(ProsperMigrate.TaskSupervisor.Sqlite,
+    Task.Supervisor.async_nolink(ProsperMigrate.TaskSupervisor,
                                 fn -> extract_item(list_itemID) end)
   end
 

@@ -8,8 +8,7 @@ defmodule ProsperMigrate do
 
     children = [
       worker(ProsperMigrate.Repo, []),
-      supervisor(Task.Supervisor, [[name: ProsperMigrate.TaskSupervisor.Influx]]),
-      supervisor(Task.Supervisor, [[name: ProsperMigrate.TaskSupervisor.Sqlite, restart: :transient]]),
+      supervisor(Task.Supervisor, [[name: ProsperMigrate.TaskSupervisor, restart: :transient]]),
       ProsperMigrate.InfluxConnection.child_spec
       # Define workers and child supervisors to be supervised
       # worker(ProsperMigrate.Worker, [arg1, arg2, arg3]),
