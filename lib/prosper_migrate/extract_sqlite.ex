@@ -1,4 +1,4 @@
-defmodule ProsperMigrate.ExtractSqlite do
+defmodule ProsperMigrate.ExtractPostgres do
   alias ProsperMigrate.Repo
   alias ProsperMigrate.InsertInflux
   import Ecto.Query

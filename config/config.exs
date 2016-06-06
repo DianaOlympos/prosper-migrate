@@ -21,9 +21,11 @@ use Mix.Config
 #     config :logger, level: :info
 #
 config :prosper_migrate, ProsperMigrate.Repo,
-  adapter: Sqlite.Ecto,
-  database: "/home/diana/database.db",
-  timeout: 60000
+  adapter: Ecto.Adapters.Postgres,
+  database: "prosper-migration",
+  username: "diana",
+  password: "",
+  hostname: "localhost"
 
 config :prosper_migrate, ProsperMigrate.InfluxConnection,
   host:     "localhost" ,
